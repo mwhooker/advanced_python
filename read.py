@@ -1,4 +1,3 @@
-from util import next_
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import Terminal256Formatter
@@ -18,13 +17,13 @@ def isplit(gen):
             yield collected
             collected = []
         else:
-            collected.append(line.strip())
+            collected.append(line.rstrip())
     if len(collected):
         yield collected
 
 
-with open('1-0.py') as f:
-    for group in isplit(f):
-        code = "\n".join(group)
-        print highlight(code, PythonLexer(), Terminal256Formatter())
-        next_()
+def main():
+    with open('1-0.py') as f:
+        for group in isplit(f):
+            code = "\n".join(group)
+            yield highlight(code, PythonLexer(), Terminal256Formatter())
