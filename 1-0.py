@@ -22,6 +22,33 @@ def next_():
 next_()
 # START
 
+import this
+
+
+next_()
+
+print """
+how the language evolves:
+
+# peps
+PEP stands for Python Enhancement Proposal. A PEP is a design document providing
+information to the Python community, or describing a new feature for Python or
+its processes or environment. The PEP should provide a concise technical
+specification of the feature and a rationale for the feature.
+
+We intend PEPs to be the primary mechanisms for proposing major new features,
+for collecting community input on an issue, and for documenting the design
+decisions that have gone into Python. The PEP author is responsible for building
+consensus within the community and documenting dissenting opinions.
+
+
+Pep 20: The Zen of Python
+Pep 8: style guide
+Pep 0257: Docstring Conventions
+"""
+
+next_()
+
 # getting help
 
 help(set)
@@ -327,6 +354,73 @@ print x.y
 # functions, classes, instances, all objects, behaving alike
 
 next_()
+# crazyshit
+# type()
+
+print "signature -> type(name, bases, dict)"
+
+NewClass = type('NewClass', (object,), {'val': [1, 2, 3]})
+
+print type(NewClass)
+newone = NewClass()
+
+print newone.val
+
+next_()
+
+def printme(self):
+    print self.val
+
+NewClass2 = type('NewClass2', (NewClass,), {'printme': printme})
+newtwo = NewClass2()
+newtwo.printme()
+
+next_()
 # metaclasses
 
+class metacls(type):
+    def __new__(mcs, name, bases, d):
+        d['foo'] = 'metacls was here'
+        return type.__new__(mcs, name, bases, d)
+
+class Meta(object):
+    __metaclass__ = metacls
+
+x = Meta()
+print x.foo
+
+next_()
+
+# metaclass pt 2
+
+# good for creating DSLs
+
+class Attribute(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+class printer(type):
+    def __new__(mcs, name, bases, d):
+        attrs = []
+        for i in d:
+            if isinstance(d[i], Attribute):
+                attrs.append(d[i])
+        for attr in attrs:
+            print "%s(%s)" % (d['implementation'], attr)
+        return type.__new__(mcs, name, bases, d)
+
+class Meta2(object):
+    __metaclass__ = printer
+    implementation = "foobar"
+    attr1 = Attribute("sicknasty")
+    attr2 = Attribute("nastynasty")
+
+x = Meta2()
+
+next_()
+
+print "DONE"
 next_()
