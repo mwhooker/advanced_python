@@ -23,7 +23,7 @@ def isplit(gen):
 
 
 def main():
-    with open('1-0.py') as f:
+    with open('deck.py') as f:
         for group in isplit(f):
             code = "\n".join([line for line in group if line != "\n"])
             yield highlight(code, PythonLexer(), Terminal256Formatter())

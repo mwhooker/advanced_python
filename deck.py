@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from read import main
 import os
 import sys
@@ -7,9 +8,7 @@ rows, columns = os.popen('stty size', 'r').read().split()
 
 source = main()
 
-previous = None
 def next_():
-    global previous
     if len(sys.argv) != 2:
         raw_input()
         print "%c[2J" % (27)
@@ -115,6 +114,7 @@ next_()
 # TODO
 # ABC - abstract base class
 # Super
+# MRO
 
 next_()
 
